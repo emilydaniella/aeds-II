@@ -1,0 +1,115 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "exercicio19",
+      "request": "launch",
+      "mainClass": "exercicio19",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio8",
+      "request": "launch",
+      "mainClass": "exercicio8.exercicio8",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio6",
+      "request": "launch",
+      "mainClass": "exercicio6",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio1",
+      "request": "launch",
+      "mainClass": "exercicio1",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio4",
+      "request": "launch",
+      "mainClass": "exercicio4",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio20",
+      "request": "launch",
+      "mainClass": "exercicio20",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio21",
+      "request": "launch",
+      "mainClass": "exercicio21",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio7",
+      "request": "launch",
+      "mainClass": "exercicio7",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio8",
+      "request": "launch",
+      "mainClass": "exercicio8",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio6",
+      "request": "launch",
+      "mainClass": "exercicio6.exercicio6",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio10",
+      "request": "launch",
+      "mainClass": "exercicio10.exercicio10",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio10",
+      "request": "launch",
+      "mainClass": "exercicio10",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "type": "java",
+      "name": "exercicio12",
+      "request": "launch",
+      "mainClass": "exercicio12",
+      "projectName": "TP1_53db6f0b"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "c:/Users/danie/OneDrive/Área de Trabalho/AEDS II/TP1",
+      "program": "c:/Users/danie/OneDrive/Área de Trabalho/AEDS II/TP1/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
