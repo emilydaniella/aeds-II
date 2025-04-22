@@ -1,46 +1,46 @@
+package Questões.exercicio5;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
 
-// classe principal que processa os dados do disney+
-public class exercicio1 {
+public class exercicio5 {
   public static Scanner sc = new Scanner(System.in);
 
-  // analisa uma linha csv tratando campos entre aspas corretamente
   public static String[] parseLine(String line) {
     boolean hasQuote = false;
-    String[] values = new String[11]; // define 11 campos fixos
+    String[] valores = new String[11];
     int fieldIndex = 0;
     StringBuilder currentValue = new StringBuilder();
 
     for (int i = 0; i < line.length(); i++) {
       char c = line.charAt(i);
-
       if (c == '\"') {
         hasQuote = !hasQuote;
       } else if (c == ',' && !hasQuote) {
-        values[fieldIndex++] = currentValue.toString();
+        valores[fieldIndex++] = currentValue.toString();
         currentValue = new StringBuilder();
       } else {
         currentValue.append(c);
       }
     }
 
-    // adiciona o ultimo valor
-    if (fieldIndex < values.length) {
-      values[fieldIndex] = currentValue.toString();
+    if (fieldIndex < valores.length) {
+      valores[fieldIndex] = currentValue.toString();
     }
 
-    return values;
+    return valores;
   }
 
-  // converte string de data para objeto date no formato "month d, yyyy"
   private static Date parseDate(String dateStr) {
     if (dateStr == null || dateStr.trim().isEmpty()) {
       try {
@@ -59,8 +59,7 @@ public class exercicio1 {
     }
   }
 
-  // divide string por virgula, remove espaco e ordena
-  private static String[] parseStrArray(String value) {
+  private static String[] formatarStringEmArray(String value) {
     if (value == null || value.trim().isEmpty()) {
       return new String[0];
     }
@@ -74,8 +73,7 @@ public class exercicio1 {
     return items;
   }
 
-  // classe que representa um show do disney+
-  static class Show implements Cloneable {
+  static class Show {
     private String show_id;
     private String type;
     private String title;
@@ -88,7 +86,6 @@ public class exercicio1 {
     private String duration;
     private String[] listed_in;
 
-    // construtor completo
     public Show(String show_id, String type, String title, String director, String[] cast, String country,
         Date date_added, int release_year, String rating, String duration, String[] listed_in) {
       this.show_id = show_id;
@@ -104,22 +101,20 @@ public class exercicio1 {
       this.listed_in = listed_in;
     }
 
-    // construtor vazio
     public Show() {
-      this.show_id = null;
-      this.type = null;
-      this.title = null;
-      this.director = null;
-      this.cast = new String[0];
-      this.country = null;
-      this.date_added = null;
+      this.show_id = "NaN";
+      this.type = "NaN";
+      this.title = "NaN";
+      this.director = "NaN";
+      this.cast = new String[] { "NaN" };
+      this.country = "NaN";
+      this.date_added = new Date(0);
       this.release_year = 0;
-      this.rating = null;
-      this.duration = null;
-      this.listed_in = new String[0];
+      this.rating = "NaN";
+      this.duration = "NaN";
+      this.listed_in = new String[] { "NaN" };
     }
 
-    // cria uma copia do objeto atual
     @Override
     public Show clone() {
       Show clone = new Show();
@@ -137,15 +132,15 @@ public class exercicio1 {
       return clone;
     }
 
-    // le os dados de um show a partir do array de tokens
     public void ler(String[] tokens) {
-      if (tokens == null || tokens.length < 11) return;
+      if (tokens == null || tokens.length < 11)
+        return;
 
       this.show_id = tokens[0] != null && !tokens[0].isEmpty() ? tokens[0] : null;
       this.type = tokens[1] != null && !tokens[1].isEmpty() ? tokens[1] : null;
       this.title = tokens[2] != null && !tokens[2].isEmpty() ? tokens[2] : null;
       this.director = tokens[3] != null && !tokens[3].isEmpty() ? tokens[3] : null;
-      this.cast = parseStrArray(tokens[4]);
+      this.cast = formatarStringEmArray(tokens[4]);
       this.country = tokens[5] != null && !tokens[5].isEmpty() ? tokens[5] : null;
       this.date_added = parseDate(tokens[6]);
 
@@ -157,10 +152,9 @@ public class exercicio1 {
 
       this.rating = tokens[8] != null && !tokens[8].isEmpty() ? tokens[8] : null;
       this.duration = tokens[9] != null && !tokens[9].isEmpty() ? tokens[9] : null;
-      this.listed_in = parseStrArray(tokens[10]);
+      this.listed_in = formatarStringEmArray(tokens[10]);
     }
 
-    // imprime os dados do show no formato especificado
     public void imprimir() {
       System.out.print("=> " + (show_id != null ? show_id : "NaN") + " ## ");
       System.out.print((title != null ? title : "NaN") + " ## ");
@@ -170,9 +164,11 @@ public class exercicio1 {
       System.out.print("[");
       for (int i = 0; i < cast.length; i++) {
         System.out.print(cast[i]);
-        if (i < cast.length - 1) System.out.print(", ");
+        if (i < cast.length - 1)
+          System.out.print(", ");
       }
-      if (cast.length == 0) System.out.print("NaN");
+      if (cast.length == 0)
+        System.out.print("NaN");
       System.out.print("] ## ");
 
       System.out.print((country != null ? country : "NaN") + " ## ");
@@ -191,34 +187,117 @@ public class exercicio1 {
       System.out.print("[");
       for (int i = 0; i < listed_in.length; i++) {
         System.out.print(listed_in[i]);
-        if (i < listed_in.length - 1) System.out.print(", ");
+        if (i < listed_in.length - 1)
+          System.out.print(", ");
       }
-      if (listed_in.length == 0) System.out.print("NaN");
+      if (listed_in.length == 0)
+        System.out.print("NaN");
       System.out.println("] ##");
     }
 
-    // getters
-    public String getShowId() { return show_id; }
+    public String getshow_id() {
+      return show_id;
+    }
+
+    public void setshow_id(String show_id) {
+      this.show_id = show_id;
+    }
+
+    public String getType() {
+      return type;
+    }
+
+    public void setType(String type) {
+      this.type = type;
+    }
+
+    public String getTitle() {
+      return title;
+    }
+
+    public void setTitle(String title) {
+      this.title = title;
+    }
+
+    public String getDirector() {
+      return director;
+    }
+
+    public void setDirector(String director) {
+      this.director = director;
+    }
+
+    public String[] getCast() {
+      return cast;
+    }
+
+    public void setCast(String[] cast) {
+      this.cast = cast;
+    }
+
+    public String getCountry() {
+      return country;
+    }
+
+    public void setCountry(String country) {
+      this.country = country;
+    }
+
+    public Date getdate_added() {
+      return date_added;
+    }
+
+    public void setdate_added(Date date_added) {
+      this.date_added = date_added;
+    }
+
+    public int getrelease_year() {
+      return release_year;
+    }
+
+    public void setrelease_year(int release_year) {
+      this.release_year = release_year;
+    }
+
+    public String getRating() {
+      return rating;
+    }
+
+    public void setRating(String rating) {
+      this.rating = rating;
+    }
+
+    public String getDuration() {
+      return duration;
+    }
+
+    public void setDuration(String duration) {
+      this.duration = duration;
+    }
+
+    public String[] getListedIn() {
+      return listed_in;
+    }
+
+    public void setListedIn(String[] listedIn) {
+      this.listed_in = listedIn;
+    }
   }
 
-  // cria um objeto show com base nos tokens
   public static Show store(String[] tokens) {
     Show show = new Show();
     show.ler(tokens);
     return show;
   }
 
-  // le o arquivo csv e retorna todos os shows
   public static Show[] readFile() {
     String path = "/tmp/disneyplus.csv";
     String line = "";
-    Show[] temp = new Show[10000];
+    Show[] temp = new Show[1368];
     int count = 0;
 
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-      // ignora o cabecalho
       line = br.readLine();
-
       while ((line = br.readLine()) != null) {
         String[] currLine = parseLine(line);
         temp[count++] = store(currLine);
@@ -228,33 +307,93 @@ public class exercicio1 {
     }
 
     Show[] shows = new Show[count];
-    for (int i = 0; i < count; i++) shows[i] = temp[i];
+    for (int i = 0; i < count; i++)
+      shows[i] = temp[i];
     return shows;
   }
 
-  // procura um show pelo id fornecido
-  public static Show findOne(String id, Show[] shows) {
-    for (int i = 0; i < shows.length; i++) {
-      if (shows[i] != null && shows[i].getShowId() != null && shows[i].getShowId().equals(id)) {
-        return shows[i];
+  public static Show acharShowPeloId(Show[] shows, String id) {
+    Show show = null;
+    int idx = 0;
+    while (idx < shows.length && show == null) {
+      if (shows[idx].getshow_id().equals(id)) {
+        show = shows[idx];
       }
+      idx++;
     }
-    return null;
+    return show;
   }
 
-  // metodo principal
-  public static void main(String args[]) {
-    Show[] shows = readFile();
-    String id = "";
+  public long now(){
+		return new Date().getTime();
+	}
 
-    while (true) {
-      id = sc.nextLine();
-      if (id.equals("FIM")) break;
+  public static void ordenaSelecao (Show [] array, int tamanho) {
+    File registro = new File ("./859238_selecao.txt");
+    long inicio = 0, fim = 0;
 
-      Show currShow = findOne(id, shows);
-      if (currShow != null) currShow.imprimir();
+    try{
+      FileWriter registros = new FileWriter (registro);
+
+      inicio = new Date().getTime();
+      int movimentos = 0, comparacao = 0;
+
+      for (int i = 0; i < tamanho - 1; i++) {
+        int menor = i; 
+        for (int j = i+1; j<tamanho; j++) {
+          comparacao++;
+          if (array[menor].getTitle().compareToIgnoreCase(array[j].getTitle()) > 0) {
+            menor = j;
+          }
+        }
+
+        if (menor != i) {
+          movimentos++;
+          Show temp = array[menor];
+          array[menor] = array[i];
+          array[i] = temp;
+        }
+      }
+
+      fim = new Date().getTime();
+      long duracao = fim - inicio;
+
+      registros.write ("859238\t" + comparacao + "\t" + movimentos + "\t" + duracao/1000.0 + "s.");
+      registros.close();
+      
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
+  }
+
+  public static void main(String[] args) {
+    Show[] shows = readFile();
+    ArrayList<Show> listaShows = new ArrayList<Show>();
+    String linhaEntrada = "";
+  
+    while (!linhaEntrada.equals("FIM")) {
+      linhaEntrada = sc.next();
+      if (!linhaEntrada.equals("FIM")) {
+        Show show = acharShowPeloId(shows, linhaEntrada);
+        listaShows.add(show);
+      }
+    }
+  
+    // Converte lista para array
+    Show[] ordenados = listaShows.toArray(new Show[0]);
+  
+    // Ordena o array com sua função de ordenação por seleção
+    ordenaSelecao(ordenados, ordenados.length);
+  
+    // Imprime os shows já ordenados
+    for (Show show : ordenados) {
+      if (show != null) {
+        show.imprimir();
+      }
+    }
+  
     sc.close();
   }
 }
+  
