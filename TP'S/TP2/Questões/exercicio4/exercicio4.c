@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 #define MAX_FILE_ITEMS_SIZE 2000
 #define MAX_STR_SIZE 500
@@ -488,26 +489,92 @@ Show read_show(char **parsed)
   }
 
   // função principal: lê id dos shows e imprime
-  int main()
-  {
+  int main() {
     int show_count = 0;
     Show *shows = read_file(&show_count);
     if (!shows)
-      return 1;
-    char input[100];
-    while (1)
-    {
-      if (fgets(input, sizeof(input), stdin) == NULL)
-        break;
-      size_t in_len = len(input);
-      if (in_len > 0 && input[in_len - 1] == '\n')
-        input[in_len - 1] = '\0';
-      if (cmp(input, "FIM") == 0)
-        break;
-      Show *s = findOne(input, shows, show_count);
-      if (s != NULL)
-        print_show(*s);
+        return 1;
+
+    Show *array = (Show *)malloc(show_count * sizeof(Show));
+    int tam_array = 0;
+
+    char input[500];
+
+
+    // Lê os IDs dos shows e imprime os detalhes
+    while (1) {
+        if (fgets(input, sizeof(input), stdin) == NULL)
+            break;
+        size_t len_input = len(input);
+        if (len_input > 0 && input[len_input - 1] == '\n')
+            input[len_input - 1] = '\0';
+        if (cmp(input, "FIM") == 0)
+            break;
+
+        Show *s = findOne(input, shows, show_count);
+        if (s != NULL) {
+            array[tam_array++] = *s;
+        }
     }
+
+    //Ordenar pelo title (para usar pesquisa binária)
+    for (int i = 1; i < tam_array; i++) {
+        Show temp = array[i];
+        int j = i - 1;
+        while (j >= 0 && cmp(array[j].title, temp.title) > 0) {
+            array[j + 1] = array[j];
+            j--;
+        }
+        array[j + 1] = temp;
+    }
+
+    //Pesquisa Binária
+    FILE *registro = fopen("./859238_binaria.txt", "w");
+    long inicio = 0, fim = 0;
+    int comparacoes = 0, movimentos = 0; // movimentos = 0 (não move nada pesquisando)
+
+    if (registro != NULL) {
+        inicio = time(NULL); // tempo inicial em segundos
+
+        while (1) {
+            if (fgets(input, sizeof(input), stdin) == NULL)
+                break;
+            size_t len_input = len(input);
+            if (len_input > 0 && input[len_input - 1] == '\n')
+                input[len_input - 1] = '\0';
+            if (cmp(input, "FIM") == 0)
+                break;
+
+            int esq = 0, dir = tam_array - 1;
+            bool found = false;
+            while (esq <= dir) {
+                int meio = (esq + dir) / 2;
+                comparacoes++;
+                int res = cmp(array[meio].title, input);
+                if (res == 0) {
+                    found = true;
+                    break;
+                } else if (res < 0) {
+                    esq = meio + 1;
+                } else {
+                    dir = meio - 1;
+                }
+            }
+
+            if (found)
+                printf("SIM\n");
+            else
+                printf("NAO\n");
+        }
+
+        fim = time(NULL); // tempo final em segundos
+        long duracao = fim - inicio;
+
+        fprintf(registro, "859238\t%d\t%d\t%lds.", comparacoes, movimentos, duracao);
+        fclose(registro);
+    }
+
+    free(array);
     free(shows);
     return 0;
-  }
+}

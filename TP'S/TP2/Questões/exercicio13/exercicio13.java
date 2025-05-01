@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -430,9 +429,9 @@ Show[] ordenados = listaShows.toArray(new Show[0]);
 new exercicio13().mergesort(ordenados);
 // Imprime os shows já ordenados
 for (Show show : ordenados) {
-  if (show != null) {
+if (show != null) {
     show.imprimir();
-  }
+}
 }
 
 sc.close();
