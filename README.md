@@ -55,7 +55,7 @@ Aplicação de estruturas hierárquicas e dispersão:
 **PUC Minas – Pontifícia Universidade Católica de Minas Gerais**  
 Curso: Ciência da Computação  
 Disciplina: AEDS II – Estruturas de Dados e Algoritmos II  
-Semestre: 2º período  
+Semestre: 3º período  
 
 ---
 
