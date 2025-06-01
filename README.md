@@ -1,6 +1,6 @@
 # 📚 AEDS II – Algoritmos e Estrutura de Dados II (PUC Minas)
 
-Este repositório foi criado para armazenar as atividades desenvolvidas na disciplina de **Algoritmos e Estruturas de Dados II (AEDS II)**, cursada no terceiro semestre do curso de **Ciência da Computação da PUC Minas**. Os conteúdos envolvem desafios clássicos de lógica, estruturação de dados, ordenação, listas, árvores, hashing e análise de desempenho.
+Este repositório foi criado para armazenar as atividades desenvolvidas na disciplina de **Algoritmos e Estruturas de Dados II (AEDS II)**, cursada no segundo semestre do curso de **Ciência da Computação da PUC Minas**. Os conteúdos envolvem desafios clássicos de lógica, estruturação de dados, ordenação, listas, árvores, hashing e análise de desempenho.
 
 ---
 
@@ -55,7 +55,7 @@ Aplicação de estruturas hierárquicas e dispersão:
 **PUC Minas – Pontifícia Universidade Católica de Minas Gerais**  
 Curso: Ciência da Computação  
 Disciplina: AEDS II – Estruturas de Dados e Algoritmos II  
-Semestre: 3º período  
+Semestre: 2º período  
 
 ---
 
